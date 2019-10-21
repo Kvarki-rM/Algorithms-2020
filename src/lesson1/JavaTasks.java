@@ -1,6 +1,10 @@
 package lesson1;
 
 import kotlin.NotImplementedError;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.*;
+import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 public class JavaTasks {
@@ -34,9 +38,47 @@ public class JavaTasks {
      *
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortTimes(String inputName, String outputName) {
-        throw new NotImplementedError();
+    static public void sortTimes(String inputName, String outputName) throws IOException {
+        ArrayList<TimeClass> temp = sortOfTime(inputName);
+        writerT(temp, outputName);
     }
+
+    @NotNull
+    private static ArrayList<TimeClass> sortOfTime(String inputName) throws IOException {
+        Timer.start();
+        ArrayList<TimeClass> end = new ArrayList<>();
+        int i = 0;
+        File file = new File(inputName);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = br.readLine()) != null) {
+            end.add(new TimeClass(line));
+            i++;
+        }
+        br.close();
+        for (int j = 0; j < end.size(); j++)
+            for (int k = 0; k < end.size(); k++)
+                if (end.get(j).hour < end.get(k).hour || ((end.get(j).min < end.get(k).min)
+                        && (end.get(j).hour == end.get(k).hour)) || ((end.get(j).sec < end.get(k).sec)
+                        && (end.get(j).min == end.get(k).min) && (end.get(j).hour == end.get(k).hour))) {
+                    TimeClass temp = end.get(k);
+                    end.set(k, end.get(j));
+                    end.set(j, temp);
+                }
+        Timer.stop("sortOfTime");
+        return end;
+    }
+
+    static private void writerT(@NotNull ArrayList<TimeClass> text, String outputName) throws IOException {
+        Timer.start();
+        try (BufferedWriter wr = new BufferedWriter(new FileWriter(outputName))) {
+            for (TimeClass timeClass : text)
+                if (timeClass.full != null)
+                    wr.write(timeClass.full + "\n");
+        }
+        Timer.stop("writerT");
+    }
+
 
     /**
      * Сортировка адресов
