@@ -140,21 +140,17 @@ public class JavaAlgorithms {
      */
     @Contract(pure = true)
     static public int calcPrimesNumber(int limit) {
-        return (getPrimes(limit));
-    }
-
-    private static int getPrimes(int count) {
         Timer.start();
-        if (count < 2) return 0;
+        if (limit < 2) return 0;
         ArrayList<Integer> primes = new ArrayList<>();
         primes.add(2);
-        for (int i = 3; primes.size() < count; i += 2)
+        for (int i = 3; primes.size() < limit; i += 2)
             if (isPrime(i, primes)) {
                 primes.add(i);
-                if (i >= count)
+                if (i >= limit)
                     break;
             }
-        Timer.stop("getPrimes");
+        Timer.stop("calcPrimesNumber");
         return primes.size() - 1;
     }
 
