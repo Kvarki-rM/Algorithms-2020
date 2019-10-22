@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
 public class JavaTasks {
@@ -139,8 +142,31 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-    static public void sortTemperatures(String inputName, String outputName) {
-        throw new NotImplementedError();
+    static public void sortTemperatures(String inputName, String outputName) throws IOException {
+        ArrayList<Double> list = new ArrayList<>();
+        Scanner in = new Scanner(new File(inputName));
+        while (in.hasNextLine()) {
+            Double temp = Double.parseDouble(in.nextLine());
+            if (temp > 500.0 || temp < -273.0) throw new IllegalArgumentException();
+            list.add(temp);
+        }
+        double max;
+        double temp = 0.0;
+
+        for (int i = 0; i <= list.size() - 1; i++) {
+            max = list.get(i);
+            for (int j = 0; j <= list.size() - 1; j++) {
+                if (list.get(j) > max){
+                    max = list.get(j);
+                   temp = list.get(i);
+                   list.set(i,list.get(j));
+                    list.set(j,temp);
+                }
+            }
+        }
+        try (FileWriter writer = new FileWriter(outputName)) {
+            for (Double element : list) writer.write(element.toString() + "\n");
+        }
     }
 
     /**
@@ -189,6 +215,9 @@ public class JavaTasks {
      * second = [null null null null null 1 3 9 13 18 23]
      * <p>
      * Результат: second = [1 3 4 9 9 13 15 20 23 28]
+     * array contents differ at index [1995], expected: <19955> but was: <19811>
+     * array contents differ at index [1981], expected: <19811> but was: <19530>
+     * array contents differ at index [1877], expected: <18770> but was: <16374>
      */
     static <T extends Comparable<T>> void mergeArrays(@NotNull T[] first, @NotNull T[] second) {
         int k = 0;
