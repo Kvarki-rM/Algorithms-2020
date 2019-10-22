@@ -10,9 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class JavaAlgorithms {
@@ -52,6 +50,7 @@ public class JavaAlgorithms {
         } catch (IOException e) {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл содержит недопустимые символы.");
         }
+
         Pair<Integer, Integer> end = new Pair<>(0, 1);
         int value = input.get(0) - input.get(1);
         for (int j = 0; j < input.size(); j++)
@@ -60,9 +59,30 @@ public class JavaAlgorithms {
                     value = input.get(j) - input.get(k);
                     end = new Pair<>(j + 1, k + 1);
                 }
-        Timer.stop("getPrimes");
+        Timer.stop("optimizeBuyAndSell");
         return end;
     }
+
+    // HashMap<Integer, Pair<Integer, Integer>> delta = new HashMap<>();
+    //        for (int j = 0; j < input.size(); j++)
+    //            for (int k = j + 1; k < input.size(); k++)
+    //                delta.put(input.get(j) - input.get(k), new Pair<>(j, k));
+    //
+    //        Pair<Integer, Integer> end = new Pair<>(0, 1);
+    //        int value = input.get(0) - input.get(1);
+    //        for (Map.Entry<Integer, Pair<Integer, Integer>> entry : delta.entrySet()) {
+    //            Integer key = entry.getKey();
+    //            Pair<Integer, Integer> num = entry.getValue();
+    //            if (key < value) {
+    //                value = key;
+    //                end = num;
+    //            }
+    //        }
+    //
+    //        //value = input.get(j) - input.get(k);
+    //        Pair<Integer, Integer> last = new Pair<>(end.getFirst() + 1, end.getSecond() + 1);
+    //        Timer.stop("getPrimes");
+    //        return last;
 
     /**
      * Задача Иосифа Флафия.
