@@ -156,7 +156,7 @@ public class JavaTasks {
         }
         quickSort(list, 0 , list.size()-1);
         try (FileWriter writer = new FileWriter(outputName)) {
-            for (Double element : list) writer.write(element.toString() + "\n");
+            for (Double element : list) writer.write(element + "\n");
         }
         Timer.stop("sortTemperatures");
     }
