@@ -4,8 +4,7 @@ import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 import static lesson1.QuickSort.quickSort;
 
@@ -47,7 +46,7 @@ public class JavaTasks {
     }
 
     @NotNull
-    private static ArrayList<TimeClass> sortOfTime(String inputName)  {
+    private static ArrayList<TimeClass> sortOfTime(String inputName) {
         Timer.start();
         ArrayList<TimeClass> end = new ArrayList<>();
         int i = 0;
