@@ -4,10 +4,13 @@ import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
+import static lesson1.QuickSort.quickSort;
 
 @SuppressWarnings("unused")
 public class JavaTasks {
@@ -143,30 +146,19 @@ public class JavaTasks {
      * 121.3
      */
     static public void sortTemperatures(String inputName, String outputName) throws IOException {
+        Timer.start();
         ArrayList<Double> list = new ArrayList<>();
         Scanner in = new Scanner(new File(inputName));
         while (in.hasNextLine()) {
-            Double temp = Double.parseDouble(in.nextLine());
+            Double temp = Double.valueOf(in.nextLine());
             if (temp > 500.0 || temp < -273.0) throw new IllegalArgumentException();
             list.add(temp);
         }
-        double max;
-        double temp = 0.0;
-
-        for (int i = 0; i <= list.size() - 1; i++) {
-            max = list.get(i);
-            for (int j = 0; j <= list.size() - 1; j++) {
-                if (list.get(j) > max){
-                    max = list.get(j);
-                   temp = list.get(i);
-                   list.set(i,list.get(j));
-                    list.set(j,temp);
-                }
-            }
-        }
+        quickSort(list, 0 , list.size()-1);
         try (FileWriter writer = new FileWriter(outputName)) {
             for (Double element : list) writer.write(element.toString() + "\n");
         }
+        Timer.stop("sortTemperatures");
     }
 
     /**
