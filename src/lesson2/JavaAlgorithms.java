@@ -128,14 +128,13 @@ public class JavaAlgorithms {
         if (count < 2) return 0;
         ArrayList<Integer> primes = new ArrayList<>();
         primes.add(2);
-        for (int i = 3; primes.size() < count; i += 2) {
+        for (int i = 3; primes.size() < count; i += 2)
             if (i % 2 != 0)
                 if (isPrime(i, primes)) {
                     primes.add(i);
                     if (i >= count)
                         break;
                 }
-        }
         Timer.stop("getPrimes");
         return primes.size() - 1;
     }
@@ -143,12 +142,8 @@ public class JavaAlgorithms {
     private static boolean isPrime(int n, List<Integer> primes) {
         double sqrt = Math.sqrt(n);
         for (int prime : primes) {
-            if (prime > sqrt) {
-                return true;
-            }
-            if (n % prime == 0) {
-                return false;
-            }
+            if (prime > sqrt) return true;
+            if (n % prime == 0) return false;
         }
         return true;
     }
