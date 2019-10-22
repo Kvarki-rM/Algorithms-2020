@@ -41,7 +41,7 @@ public class JavaAlgorithms {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
 
-    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) throws IOException {
+    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
         Timer.start();
         ArrayList<Integer> input = new ArrayList<>();
         try {
@@ -50,7 +50,7 @@ public class JavaAlgorithms {
             while ((line = br.readLine()) != null) input.add(Integer.valueOf(line));
             br.close();
         } catch (IOException e) {
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("Нету файла по указанному пути или файл содержит недопустимые символы.");
         }
         Pair<Integer, Integer> end = new Pair<>(0, 1);
         int value = input.get(0) - input.get(1);

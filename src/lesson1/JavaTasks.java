@@ -47,17 +47,21 @@ public class JavaTasks {
     }
 
     @NotNull
-    private static ArrayList<TimeClass> sortOfTime(String inputName) throws IOException {
+    private static ArrayList<TimeClass> sortOfTime(String inputName)  {
         Timer.start();
         ArrayList<TimeClass> end = new ArrayList<>();
         int i = 0;
-        BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
-        String line;
-        while ((line = br.readLine()) != null) {
-            end.add(new TimeClass(line));
-            i++;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
+            String line;
+            while ((line = br.readLine()) != null) {
+                end.add(new TimeClass(line));
+                i++;
+            }
+            br.close();
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Нету файла по указанному пути или файл содержит недопустимые символы.");
         }
-        br.close();
         for (int j = 0; j < end.size(); j++)
             for (int k = 0; k < end.size(); k++)
                 if (end.get(j).hour < end.get(k).hour || ((end.get(j).min < end.get(k).min)
