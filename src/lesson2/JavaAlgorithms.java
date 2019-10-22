@@ -51,38 +51,29 @@ public class JavaAlgorithms {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл содержит недопустимые символы.");
         }
 
-        Pair<Integer, Integer> end = new Pair<>(0, 1);
-        int value = input.get(0) - input.get(1);
-        for (int j = 0; j < input.size(); j++)
-            for (int k = j + 1; k < input.size(); k++)
-                if ((input.get(j) - input.get(k) < value)) {
-                    value = input.get(j) - input.get(k);
-                    end = new Pair<>(j + 1, k + 1);
-                }
-        Timer.stop("optimizeBuyAndSell");
-        return end;
-    }
+        ArrayList<Integer> delta = new ArrayList<>();
+        for (int i = 0; i < input.size() - 1; i++) delta.add(input.get(i + 1) - input.get(i));
 
-    // HashMap<Integer, Pair<Integer, Integer>> delta = new HashMap<>();
-    //        for (int j = 0; j < input.size(); j++)
-    //            for (int k = j + 1; k < input.size(); k++)
-    //                delta.put(input.get(j) - input.get(k), new Pair<>(j, k));
-    //
-    //        Pair<Integer, Integer> end = new Pair<>(0, 1);
-    //        int value = input.get(0) - input.get(1);
-    //        for (Map.Entry<Integer, Pair<Integer, Integer>> entry : delta.entrySet()) {
-    //            Integer key = entry.getKey();
-    //            Pair<Integer, Integer> num = entry.getValue();
-    //            if (key < value) {
-    //                value = key;
-    //                end = num;
-    //            }
-    //        }
-    //
-    //        //value = input.get(j) - input.get(k);
-    //        Pair<Integer, Integer> last = new Pair<>(end.getFirst() + 1, end.getSecond() + 1);
-    //        Timer.stop("getPrimes");
-    //        return last;
+        int max = 0;
+        int sum = 0;
+        int begin = 0;
+        int end = 0;
+        int maxBegin = 0;
+        for (int j = 0; j < delta.size(); j++) {
+            sum += delta.get(j);
+            if (sum > max) {
+                max = sum;
+                maxBegin = begin;
+                end = j;
+            }
+            if (sum < 0) {
+                sum = 0;
+                begin = j + 1;
+            }
+        }
+        Timer.stop("optimizeBuyAndSell");
+        return (new Pair<>(maxBegin + 1, end + 2));
+    }
 
     /**
      * Задача Иосифа Флафия.
