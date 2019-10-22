@@ -4,10 +4,7 @@ import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 
 import static lesson1.QuickSort.quickSort;
@@ -154,7 +151,7 @@ public class JavaTasks {
             if (temp > 500.0 || temp < -273.0) throw new IllegalArgumentException();
             list.add(temp);
         }
-        quickSort(list, 0 , list.size()-1);
+        quickSort(list, 0, list.size() - 1);
         try (FileWriter writer = new FileWriter(outputName)) {
             for (Double element : list) writer.write(element + "\n");
         }

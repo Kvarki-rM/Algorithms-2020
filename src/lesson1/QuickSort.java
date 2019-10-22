@@ -1,10 +1,12 @@
 package lesson1;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 class QuickSort {
 
-    static void quickSort(ArrayList<Double> array, int low, int high) {
+    static void quickSort(@NotNull ArrayList<Double> array, int low, int high) {
         if (array.size() == 0)
             return;
         if (low >= high)
@@ -12,7 +14,8 @@ class QuickSort {
         int middle = low + (high - low) / 2;
         double step = array.get(middle);
 
-        int i = low, j = high;
+        int i = low;
+        int j = high;
         while (i <= j) {
             while (array.get(i) < step) {
                 i++;
