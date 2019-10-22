@@ -4,8 +4,12 @@ import kotlin.NotImplementedError;
 import kotlin.Pair;
 import lesson1.Timer;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
-import java.sql.Time;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,8 +40,24 @@ public class JavaAlgorithms {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
-        throw new NotImplementedError();
+
+    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) throws IOException {
+        Timer.start();
+        ArrayList<Integer> input = new ArrayList<>();
+        BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
+        String line;
+        while ((line = br.readLine()) != null) input.add(Integer.valueOf(line));
+        br.close();
+        Pair<Integer, Integer> end = new Pair<>(0, 1);
+        int value = input.get(0) - input.get(1);
+        for (int j = 0; j < input.size(); j++)
+            for (int k = j + 1; k < input.size(); k++)
+                if ((input.get(j) - input.get(k) < value)) {
+                    value = input.get(j) - input.get(k);
+                    end = new Pair<>(j + 1, k + 1);
+                }
+        Timer.stop("getPrimes");
+        return end;
     }
 
     /**
@@ -129,17 +149,17 @@ public class JavaAlgorithms {
         ArrayList<Integer> primes = new ArrayList<>();
         primes.add(2);
         for (int i = 3; primes.size() < count; i += 2)
-            if (i % 2 != 0)
-                if (isPrime(i, primes)) {
-                    primes.add(i);
-                    if (i >= count)
-                        break;
-                }
+            if (isPrime(i, primes)) {
+                primes.add(i);
+                if (i >= count)
+                    break;
+            }
         Timer.stop("getPrimes");
         return primes.size() - 1;
     }
 
-    private static boolean isPrime(int n, List<Integer> primes) {
+    @Contract(pure = true)
+    private static boolean isPrime(int n, @NotNull List<Integer> primes) {
         double sqrt = Math.sqrt(n);
         for (int prime : primes) {
             if (prime > sqrt) return true;
