@@ -190,7 +190,7 @@ public class JavaTasks {
      * <p>
      * Результат: second = [1 3 4 9 9 13 15 20 23 28]
      */
-    static <T extends Comparable<T>> void mergeArrays(@NotNull T[] first, @NotNull T[] second) throws IOException {
+    static <T extends Comparable<T>> void mergeArrays(@NotNull T[] first, @NotNull T[] second) {
         int k = 0;
         int j = first.length;
         int i = 0;
