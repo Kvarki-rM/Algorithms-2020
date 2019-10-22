@@ -44,10 +44,14 @@ public class JavaAlgorithms {
     static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) throws IOException {
         Timer.start();
         ArrayList<Integer> input = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
-        String line;
-        while ((line = br.readLine()) != null) input.add(Integer.valueOf(line));
-        br.close();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
+            String line;
+            while ((line = br.readLine()) != null) input.add(Integer.valueOf(line));
+            br.close();
+        } catch (IOException e) {
+            throw new IllegalArgumentException("");
+        }
         Pair<Integer, Integer> end = new Pair<>(0, 1);
         int value = input.get(0) - input.get(1);
         for (int j = 0; j < input.size(); j++)
