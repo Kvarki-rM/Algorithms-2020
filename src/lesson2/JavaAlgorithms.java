@@ -6,10 +6,8 @@ import lesson1.Timer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @SuppressWarnings("unused")
@@ -211,7 +209,7 @@ public class JavaAlgorithms {
         ArrayList<String[]> input = new ArrayList<>();
         HashSet<String> end = new HashSet<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(inputName), StandardCharsets.UTF_8));
             String line;
             while ((line = br.readLine()) != null) input.add(line.split(" "));
             br.close();
@@ -221,39 +219,44 @@ public class JavaAlgorithms {
         for (String word : words) {
             for (int x = 0; x < input.size(); x++)
                 for (int y = 0; y < input.get(0).length; y++)
-                    if (encounter(input, word.split(""), x, y, 0)) {
-                        end.add(word);
-                    }
+                    if (input.get(x)[y].equals(word.split("")[0]))
+                        if (encounter(input, word.split(""), x, y, 0)) {
+                            end.add(word);
+                            break;
+                        }
         }
         return end;
     }
 
     private static boolean encounter(ArrayList<String[]> inside, String[] word, Integer x, Integer y, Integer leng) {
-        if (leng+1 == word.length) {
+        if (leng + 1 == word.length) {
             return true;
         }
         if (x > 0)
-            if (inside.get(x - 1)[y].equals(word[leng+1])) {//вверх
-                if (encounter(inside, word, x - 1, y, leng++)) {
+            if (inside.get(x - 1)[y].equals(word[leng + 1])) {//вверх
+                leng++;
+                if (encounter(inside, word, x - 1, y, leng)) {
                     return true;
                 }
             }
-        if (x < inside.size()-1)
-            if (inside.get(x + 1)[y].equals(word[leng+1])) {//вниз
-                if (encounter(inside, word, x + 1, y, leng++)) {
+        if (x < inside.size() - 1)
+            if (inside.get(x + 1)[y].equals(word[leng + 1])) {//вниз
+                leng++;
+                if (encounter(inside, word, x + 1, y, leng)) {
                     return true;
                 }
             }
         if (y > 0)
-            if (inside.get(x)[y - 1].equals(word[leng+1])) {//влево
+            if (inside.get(x)[y - 1].equals(word[leng + 1])) {//влево
                 leng++;
-                if (encounter(inside, word, x, y - 1, leng++)) {
+                if (encounter(inside, word, x, y - 1, leng)) {
                     return true;
                 }
             }
-        if (y < inside.get(0).length-1)
-            if (inside.get(x)[y + 1].equals(word[leng+1])) {//вправо
-                if (encounter(inside, word, x, y + 1, leng++)) {
+        if (y < inside.get(0).length - 1)
+            if (inside.get(x)[y + 1].equals(word[leng + 1])) {//вправо
+                leng++;
+                if (encounter(inside, word, x, y + 1, leng)) {
                     return true;
                 }
             }
