@@ -140,8 +140,37 @@ public class JavaAlgorithms {
      * Если имеется несколько самых длинных общих подстрок одной длины,
      * вернуть ту из них, которая встречается раньше в строке first.
      */
-    static public String longestCommonSubstring(String firs, String second) {
-        throw new NotImplementedError();
+    static public String longestCommonSubstring(String first, String second) {
+        if (first == null || second == null || first.length() == 0 || second.length() == 0) {
+            return "";
+        }
+        String outMaxName = "";
+        int maxLen = 0;
+        int fl = first.length();
+        int sl = second.length();
+        StringBuilder temp = new StringBuilder();
+        int distance = 0;
+        for (int i = 0; i < fl; i++)
+            for (int j = 0; j < sl; j++)
+                if (first.charAt(i) == second.charAt(j)) {
+                    distance++;
+                    for (int k = 0; k < Math.min(fl - i, sl - j); k++) {
+                        if (first.charAt(i + k) == second.charAt(j + k)) {
+                            temp.append(first.charAt(i + k));
+                            distance++;
+                        } else {
+                            if (distance > maxLen) {
+                                maxLen = distance;
+                                outMaxName = String.valueOf(temp);
+                            }
+                            temp = new StringBuilder();
+                            distance = 0;
+                            break;
+                        }
+                    }
+                }
+        System.out.println(maxLen);
+        return outMaxName;
     }
 
     /**
