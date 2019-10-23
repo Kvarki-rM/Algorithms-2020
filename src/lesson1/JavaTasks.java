@@ -1,6 +1,7 @@
 package lesson1;
 
 import kotlin.NotImplementedError;
+import kotlin.random.URandomKt;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -40,6 +41,11 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
+    /**
+     * Ресурсоемкость - O(N)
+     * Трудоемкость - O(N log2N)
+     */
+
     static public void sortTimes(String inputName, String outputName) throws IOException {
         ArrayList<TimeClass> temp = sortOfTime(inputName);
         writerT(temp, outputName);
@@ -144,7 +150,11 @@ public class JavaTasks {
      * 24.7
      * 99.5
      * 121.3
+     *
+     * Была использована быстрая сортировка
+     * Трудоёмкость O(N), ресурсоёмкость O(1)
      */
+
     static public void sortTemperatures(String inputName, String outputName) throws IOException {
         Timer.start();
         ArrayList<Double> list = new ArrayList<>();
