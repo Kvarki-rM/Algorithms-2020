@@ -1,7 +1,6 @@
 package lesson1;
 
 import kotlin.NotImplementedError;
-import kotlin.random.URandomKt;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -40,8 +39,7 @@ public class JavaTasks {
      * 07:56:14 PM
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
-     */
-    /**
+     *
      * Ресурсоемкость - O(N)
      * Трудоемкость - O(N log2N)
      */
@@ -199,6 +197,9 @@ public class JavaTasks {
      * 2
      * 2
      * 2
+     *
+     * Ресурсоемкость - O(N)
+     * Трудоемкость - O(N)
      */
 
     static public void sortSequence(String inputName, String outputName) throws IOException {
