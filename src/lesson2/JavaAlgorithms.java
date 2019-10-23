@@ -35,7 +35,7 @@ public class JavaAlgorithms {
      * Например, для приведённого выше файла результат должен быть Pair(3, 4)
      * <p> 17383 14987
      * В случае обнаружения неверного формата файла бросить любое исключение.
-     *
+     * <p>
      * Ресурсоемкость - O(N)
      * Трудоемкость - O(N^2)
      */
@@ -141,7 +141,7 @@ public class JavaAlgorithms {
      * При сравнении подстрок, регистр символов *имеет* значение.
      * Если имеется несколько самых длинных общих подстрок одной длины,
      * вернуть ту из них, которая встречается раньше в строке first.
-     *
+     * <p>
      * N - длина первой строки, М - длина второй строки
      * Ресурсоемкость - O(min(N,M))
      * Трудоемкость - O(MN)
@@ -189,8 +189,8 @@ public class JavaAlgorithms {
      * <p>
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
-     *
-     *  Трудоёмкость O(N*sqrt(N)), ресурсоёмкость O(1)
+     * <p>
+     * Трудоёмкость O(N*sqrt(N)), ресурсоёмкость O(1)
      */
 
     @Contract(pure = true)
@@ -244,7 +244,7 @@ public class JavaAlgorithms {
      * Все слова и буквы -- русские или английские, прописные.
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
-     *
+     * <p>
      * N - количество строк в матрице,
      * М - количество столбцов в матрице,
      * K - количество слов в файле
@@ -258,7 +258,8 @@ public class JavaAlgorithms {
         ArrayList<String[]> input = new ArrayList<>();
         HashSet<String> end = new HashSet<>();
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(inputName), StandardCharsets.UTF_8));
+            BufferedReader br = new BufferedReader(new InputStreamReader
+                    (new FileInputStream(inputName), StandardCharsets.UTF_8));
             String line;
             while ((line = br.readLine()) != null) input.add(line.split(" "));
             br.close();
@@ -279,7 +280,9 @@ public class JavaAlgorithms {
         return end;
     }
 
-    private static boolean encounter(ArrayList<String[]> inside, @NotNull String[] word, Integer x, Integer y, Integer leng) {
+    private static boolean encounter(ArrayList<String[]> inside,
+                                     @NotNull String[] word,
+                                     Integer x, Integer y, Integer leng) {
         if (leng + 1 == word.length) {
             return true;
         }
