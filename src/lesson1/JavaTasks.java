@@ -255,6 +255,8 @@ public class JavaTasks {
      * array contents differ at index [1995], expected: <19955> but was: <19811>
      * array contents differ at index [1981], expected: <19811> but was: <19530>
      * array contents differ at index [1877], expected: <18770> but was: <16374>
+     *     System.arraycopy(first, 0, second, 0, first.length);
+     *         Arrays.sort(second);
      */
     static <T extends Comparable<T>> void mergeArrays(@NotNull T[] first, @NotNull T[] second) {
         int k = 0;
