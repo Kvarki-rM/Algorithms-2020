@@ -39,7 +39,6 @@ public class JavaAlgorithms {
      * Ресурсоемкость - O(N)
      * Трудоемкость - O(N^2)
      */
-
     @NotNull
     @Contract("_ -> new")
     static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
@@ -147,6 +146,7 @@ public class JavaAlgorithms {
      * Ресурсоемкость - O(min(N,M))
      * Трудоемкость - O(MN)
      */
+    @Contract("null, _ -> !null; !null, null -> !null")
     static public String longestCommonSubstring(String first, String second) {
         if (first == null || second == null || first.length() == 0 || second.length() == 0) {
             return "";
