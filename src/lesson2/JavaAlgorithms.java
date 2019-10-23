@@ -268,7 +268,7 @@ public class JavaAlgorithms {
         for (String word : words) {
             for (int x = 0; x < input.size(); x++)
                 for (int y = 0; y < input.get(0).length; y++)
-                    if (input.get(x)[y].equals(word.split("")[0]))
+                    if (input.get(x)[y].toUpperCase().equals(word.split("")[0].toUpperCase()))
                         if (encounter(input, word.split(""), x, y, 0)) {
                             end.add(word);
                             x = input.size();
@@ -284,25 +284,25 @@ public class JavaAlgorithms {
             return true;
         }
         if (x > 0)
-            if (inside.get(x - 1)[y].equals(word[leng + 1])) {//вверх
+            if (inside.get(x - 1)[y].toUpperCase().equals(word[leng + 1].toUpperCase())) {//вверх
                 leng++;
                 if (encounter(inside, word, x - 1, y, leng)) return true;
                 else leng--;
             }
         if (x < inside.size() - 1)
-            if (inside.get(x + 1)[y].equals(word[leng + 1])) {//вниз
+            if (inside.get(x + 1)[y].toUpperCase().equals(word[leng + 1].toUpperCase())) {//вниз
                 leng++;
                 if (encounter(inside, word, x + 1, y, leng)) return true;
                 else leng--;
             }
         if (y > 0)
-            if (inside.get(x)[y - 1].equals(word[leng + 1])) {//влево
+            if (inside.get(x)[y - 1].toUpperCase().equals(word[leng + 1].toUpperCase())) {//влево
                 leng++;
                 if (encounter(inside, word, x, y - 1, leng)) return true;
                 else leng--;
             }
         if (y < inside.get(0).length - 1)
-            if (inside.get(x)[y + 1].equals(word[leng + 1])) {//вправо
+            if (inside.get(x)[y + 1].toUpperCase().equals(word[leng + 1].toUpperCase())) {//вправо
                 leng++;
                 return encounter(inside, word, x, y + 1, leng);
             }

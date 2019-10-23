@@ -162,6 +162,10 @@ abstract class AbstractAlgorithmsTests {
             baldaSearcher("input/balda_in2.txt", setOf("БАЛАБОЛ", "БАЛДА", "БАЛДАЗАВР"))
         )
         assertEquals(
+            setOf("КЕКС", "КОЖА", "КОРОВА", "РИЗАКОР"),
+            baldaSearcher("input/balda_in4.txt", setOf("КЕКС", "КОЖА", "КОРОВА","АЯК", "РИЗАКОР", "ЛОГ"))
+        )
+        assertEquals(
             setOf(
                 "АПЕЛЬСИН", "МАРОККО", "ПЕРЕМЕНЫ", "ГРАВИТАЦИЯ",
                 "РАССУДИТЕЛЬНОСТЬ", "КОНСТАНТИНОПОЛЬ", "ПРОГРАММИРОВАНИЕ", "ПОМЕХОУСТОЙЧИВОСТЬ", "АППРОКСИМАЦИЯ",
