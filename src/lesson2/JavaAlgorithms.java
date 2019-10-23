@@ -37,6 +37,8 @@ public class JavaAlgorithms {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
 
+    @NotNull
+    @Contract("_ -> new")
     static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
         Timer.start();
         ArrayList<Integer> input = new ArrayList<>();
@@ -206,6 +208,7 @@ public class JavaAlgorithms {
      */
     @NotNull
     static public Set<String> baldaSearcher(String inputName, Set<String> words) {
+        Timer.start();
         ArrayList<String[]> input = new ArrayList<>();
         HashSet<String> end = new HashSet<>();
         try {
@@ -222,10 +225,11 @@ public class JavaAlgorithms {
                     if (input.get(x)[y].equals(word.split("")[0]))
                         if (encounter(input, word.split(""), x, y, 0)) {
                             end.add(word);
-                            x=input.size();
+                            x = input.size();
                             break;
                         }
         }
+        Timer.stop("baldaSearcher");
         return end;
     }
 
@@ -236,23 +240,20 @@ public class JavaAlgorithms {
         if (x > 0)
             if (inside.get(x - 1)[y].equals(word[leng + 1])) {//вверх
                 leng++;
-                if (encounter(inside, word, x - 1, y, leng)) {
-                    return true;
-                }else leng--;
+                if (encounter(inside, word, x - 1, y, leng)) return true;
+                else leng--;
             }
         if (x < inside.size() - 1)
             if (inside.get(x + 1)[y].equals(word[leng + 1])) {//вниз
                 leng++;
-                if (encounter(inside, word, x + 1, y, leng)) {
-                    return true;
-                }else leng--;
+                if (encounter(inside, word, x + 1, y, leng)) return true;
+                else leng--;
             }
         if (y > 0)
             if (inside.get(x)[y - 1].equals(word[leng + 1])) {//влево
                 leng++;
-                if (encounter(inside, word, x, y - 1, leng)) {
-                    return true;
-                }else leng--;
+                if (encounter(inside, word, x, y - 1, leng)) return true;
+                else leng--;
             }
         if (y < inside.get(0).length - 1)
             if (inside.get(x)[y + 1].equals(word[leng + 1])) {//вправо
