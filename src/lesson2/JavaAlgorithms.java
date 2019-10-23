@@ -206,7 +206,60 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
+    @NotNull
     static public Set<String> baldaSearcher(String inputName, Set<String> words) {
-        throw new NotImplementedError();
+        ArrayList<String[]> input = new ArrayList<>();
+        HashSet<String> end = new HashSet<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
+            String line;
+            while ((line = br.readLine()) != null) input.add(line.split(" "));
+            br.close();
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
+        }
+        for (String word : words) {
+            for (int x = 0; x < input.size(); x++)
+                for (int y = 0; y < input.get(0).length; y++)
+                    if (encounter(input, word.split(""), x, y, 0)) {
+                        end.add(word);
+                    }
+        }
+        return end;
+    }
+
+    private static boolean encounter(ArrayList<String[]> inside, String[] word, Integer x, Integer y, Integer leng) {
+        if (leng+1 == word.length) {
+            return true;
+        }
+        if (x > 0)
+            if (inside.get(x - 1)[y].equals(word[leng+1])) {//вверх
+                leng++;
+                if (encounter(inside, word, x - 1, y, leng)) {
+                    return true;
+                }
+            }
+        if (x < inside.size()-1)
+            if (inside.get(x + 1)[y].equals(word[leng+1])) {//вниз
+                leng++;
+                if (encounter(inside, word, x + 1, y, leng)) {
+                    return true;
+                }
+            }
+        if (y > 0)
+            if (inside.get(x)[y - 1].equals(word[leng+1])) {//влево
+                leng++;
+                if (encounter(inside, word, x, y - 1, leng)) {
+                    return true;
+                }
+            }
+        if (y < inside.get(0).length-1)
+            if (inside.get(x)[y + 1].equals(word[leng+1])) {//вправо
+                leng++;
+                if (encounter(inside, word, x, y + 1, leng)) {
+                    return true;
+                }
+            }
+        return false;
     }
 }
