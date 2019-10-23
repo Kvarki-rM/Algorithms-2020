@@ -59,7 +59,7 @@ public class JavaTasks {
             }
             br.close();
         } catch (IOException e) {
-            throw new IllegalArgumentException("Нету файла по указанному пути или файл содержит недопустимые символы.");
+            throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
         for (int j = 0; j < end.size(); j++)
             for (int k = 0; k < end.size(); k++)
@@ -190,9 +190,43 @@ public class JavaTasks {
      * 2
      * 2
      */
-    static public void sortSequence(String inputName, String outputName) {
-        throw new NotImplementedError();
+
+    static public void sortSequence(String inputName, String outputName) throws IOException {
+        Timer.start();
+        ArrayDeque<Integer> list = new ArrayDeque<>();
+        Integer nameOfMax = -1;
+        Integer j = -1;
+        try (BufferedReader buffer = new BufferedReader(new FileReader(inputName))) {
+            Map<Integer, Integer> countNumber = new HashMap<>();
+            String line = buffer.readLine();
+            while (line != null) {
+                int number = Integer.parseInt(line);
+                list.add(number);
+                Integer count = countNumber.get(number);
+                if (count == null) count = 0;
+                countNumber.put(number, count + 1);
+                line = buffer.readLine();
+            }
+            for (Map.Entry<Integer, Integer> entry : countNumber.entrySet()) {
+                Integer actualName = entry.getKey();
+                Integer count = entry.getValue();
+                if (count > j || ((count.equals(j)) && (actualName < nameOfMax))) {
+                    j = count;
+                    nameOfMax = actualName;
+                }
+            }
+            try (FileWriter writer = new FileWriter(outputName)) {
+                for (Integer zz : list) {
+                    if (!zz.equals(nameOfMax))
+                        writer.write(list.peek() + "\n");
+                    list.remove();
+                }
+                for (; j > 0; j--) writer.write(nameOfMax + "\n");
+            }
+        }
+        Timer.stop("sortSequence");
     }
+
 
     /**
      * Соединить два отсортированных массива в один

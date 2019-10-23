@@ -48,7 +48,7 @@ public class JavaAlgorithms {
             while ((line = br.readLine()) != null) input.add(Integer.valueOf(line));
             br.close();
         } catch (IOException e) {
-            throw new IllegalArgumentException("Нету файла по указанному пути или файл содержит недопустимые символы.");
+            throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
 
         ArrayList<Integer> delta = new ArrayList<>();
@@ -71,6 +71,7 @@ public class JavaAlgorithms {
                 begin = j + 1;
             }
         }
+
         Timer.stop("optimizeBuyAndSell");
         return (new Pair<>(maxBegin + 1, end + 2));
     }
