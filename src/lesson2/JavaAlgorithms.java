@@ -234,29 +234,26 @@ public class JavaAlgorithms {
         }
         if (x > 0)
             if (inside.get(x - 1)[y].equals(word[leng+1])) {//вверх
-                leng++;
-                if (encounter(inside, word, x - 1, y, leng)) {
+                if (encounter(inside, word, x - 1, y, leng++)) {
                     return true;
                 }
             }
         if (x < inside.size()-1)
             if (inside.get(x + 1)[y].equals(word[leng+1])) {//вниз
-                leng++;
-                if (encounter(inside, word, x + 1, y, leng)) {
+                if (encounter(inside, word, x + 1, y, leng++)) {
                     return true;
                 }
             }
         if (y > 0)
             if (inside.get(x)[y - 1].equals(word[leng+1])) {//влево
                 leng++;
-                if (encounter(inside, word, x, y - 1, leng)) {
+                if (encounter(inside, word, x, y - 1, leng++)) {
                     return true;
                 }
             }
         if (y < inside.get(0).length-1)
             if (inside.get(x)[y + 1].equals(word[leng+1])) {//вправо
-                leng++;
-                if (encounter(inside, word, x, y + 1, leng)) {
+                if (encounter(inside, word, x, y + 1, leng++)) {
                     return true;
                 }
             }
