@@ -222,13 +222,14 @@ public class JavaAlgorithms {
                     if (input.get(x)[y].equals(word.split("")[0]))
                         if (encounter(input, word.split(""), x, y, 0)) {
                             end.add(word);
+                            x=input.size();
                             break;
                         }
         }
         return end;
     }
 
-    private static boolean encounter(ArrayList<String[]> inside, String[] word, Integer x, Integer y, Integer leng) {
+    private static boolean encounter(ArrayList<String[]> inside, @NotNull String[] word, Integer x, Integer y, Integer leng) {
         if (leng + 1 == word.length) {
             return true;
         }
@@ -237,28 +238,26 @@ public class JavaAlgorithms {
                 leng++;
                 if (encounter(inside, word, x - 1, y, leng)) {
                     return true;
-                }
+                }else leng--;
             }
         if (x < inside.size() - 1)
             if (inside.get(x + 1)[y].equals(word[leng + 1])) {//вниз
                 leng++;
                 if (encounter(inside, word, x + 1, y, leng)) {
                     return true;
-                }
+                }else leng--;
             }
         if (y > 0)
             if (inside.get(x)[y - 1].equals(word[leng + 1])) {//влево
                 leng++;
                 if (encounter(inside, word, x, y - 1, leng)) {
                     return true;
-                }
+                }else leng--;
             }
         if (y < inside.get(0).length - 1)
             if (inside.get(x)[y + 1].equals(word[leng + 1])) {//вправо
                 leng++;
-                if (encounter(inside, word, x, y + 1, leng)) {
-                    return true;
-                }
+                return encounter(inside, word, x, y + 1, leng);
             }
         return false;
     }
