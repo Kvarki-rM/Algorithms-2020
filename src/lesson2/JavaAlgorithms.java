@@ -176,7 +176,6 @@ public class JavaAlgorithms {
                         }
                     }
                 }
-        System.out.println(maxLen);
         return outMaxName;
     }
 
@@ -294,10 +293,10 @@ public class JavaAlgorithms {
         return end;
     }
 
-    private static boolean encounter(ArrayList<String[]> inside,
-                                     @NotNull String[] word,
-                                     Integer x, Integer y, Integer leng, ArrayList<ArrayList<Boolean>> wasUsed) {
-        if (leng + 1 == word.length)         return true;
+    private static boolean encounter(ArrayList<String[]> inside, @NotNull String[] word,
+                                     Integer x, Integer y, Integer leng,
+                                     ArrayList<ArrayList<Boolean>> wasUsed) {
+        if (leng + 1 == word.length) return true;
         if (x > 0)
             if (!wasUsed.get(x - 1).get(y))
                 if (inside.get(x - 1)[y].toUpperCase().equals(word[leng + 1].toUpperCase())) {//вверх
