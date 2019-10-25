@@ -37,7 +37,7 @@ public class JavaAlgorithms {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      * <p>
      * Ресурсоемкость - O(N)
-     * Трудоемкость - O(N^2)
+     * Трудоемкость - ..............     * Трудоемкость - .....................     * Трудоемкость - ............................
      */
     @NotNull
     @Contract("_ -> new")
@@ -191,8 +191,6 @@ public class JavaAlgorithms {
      * <p>
      * Трудоёмкость O(N*sqrt(N)), ресурсоёмкость O(1)
      */
-
-    @Contract(pure = true)
     static public int calcPrimesNumber(int limit) {
         Timer.start();
         if (limit < 2) return 0;
@@ -257,7 +255,6 @@ public class JavaAlgorithms {
         ArrayList<String[]> input = new ArrayList<>();
         HashSet<String> end = new HashSet<>();
         ArrayList<ArrayList<Boolean>> wasUsed = new ArrayList<>();
-
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader
                     (new FileInputStream(inputName), StandardCharsets.UTF_8));
@@ -270,7 +267,6 @@ public class JavaAlgorithms {
         } catch (IOException e) {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
-
         for (ArrayList<Boolean> zzz : wasUsed)
             for (int i = 0; i < input.get(0).length; i++)
                 zzz.add(false);

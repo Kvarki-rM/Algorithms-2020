@@ -39,13 +39,13 @@ public class JavaTasks {
      * 07:56:14 PM
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
-     *
+     * <p>
      * Ресурсоемкость - O(N)
-     * Трудоемкость - O(N log2N)
+     * Трудоемкость - O(N log2N) Трудоемкость - O(N log2N) Трудоемкость - O(N log2N) Трудоемкость - O(N log2N) Трудоемкость - O(N log2N)
      */
 
     static public void sortTimes(String inputName, String outputName) throws IOException {
-        ArrayList<TimeClass> temp = sortOfTime(inputName);
+        List<TimeClass> temp = sortOfTime(inputName);
         writerT(temp, outputName);
     }
 
@@ -54,14 +54,12 @@ public class JavaTasks {
         Timer.start();
         ArrayList<TimeClass> end = new ArrayList<>();
         int i = 0;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(inputName)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 end.add(new TimeClass(line));
                 i++;
             }
-            br.close();
         } catch (IOException e) {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
@@ -78,7 +76,7 @@ public class JavaTasks {
         return end;
     }
 
-    static private void writerT(@NotNull ArrayList<TimeClass> text, String outputName) throws IOException {
+    static private void writerT(@NotNull List<TimeClass> text, String outputName) throws IOException {
         Timer.start();
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(outputName))) {
             for (TimeClass timeClass : text)
@@ -148,7 +146,7 @@ public class JavaTasks {
      * 24.7
      * 99.5
      * 121.3
-     *
+     * <p>
      * Была использована быстрая сортировка
      * Трудоёмкость O(N), ресурсоёмкость O(1)
      */
@@ -197,7 +195,7 @@ public class JavaTasks {
      * 2
      * 2
      * 2
-     *
+     * <p>
      * Ресурсоемкость - O(N)
      * Трудоемкость - O(N)
      */
@@ -255,8 +253,8 @@ public class JavaTasks {
      * array contents differ at index [1995], expected: <19955> but was: <19811>
      * array contents differ at index [1981], expected: <19811> but was: <19530>
      * array contents differ at index [1877], expected: <18770> but was: <16374>
-     *     System.arraycopy(first, 0, second, 0, first.length);
-     *         Arrays.sort(second);
+     * System.arraycopy(first, 0, second, 0, first.length);
+     * Arrays.sort(second);
      */
     static <T extends Comparable<T>> void mergeArrays(@NotNull T[] first, @NotNull T[] second) {
         int k = 0;

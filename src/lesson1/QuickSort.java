@@ -2,11 +2,11 @@ package lesson1;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 class QuickSort {
 
-    static void quickSort(@NotNull ArrayList<Double> array, int low, int high) {
+    static void quickSort(@NotNull List<Double> array, int low, int high) {
         if (array.size() == 0)
             return;
         if (low >= high)
