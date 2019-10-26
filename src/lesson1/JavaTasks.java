@@ -57,30 +57,29 @@ public class JavaTasks {
         Timer.start();
         Comparator<TimeClass> comp = new HourCompare().thenComparing
                 (new MinCompare()).thenComparing(new SecCompare());
-        //TreeSet<TimeClass> dataset = new TreeSet<>(comp);
-        ArrayList<TimeClass> dataset = new ArrayList<>();
+        ArrayList<TimeClass> dataSet = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(new File(inputName)))) {
             String line;
             while ((line = br.readLine()) != null) {
-                dataset.add(new TimeClass(line));
+                dataSet.add(new TimeClass(line));
             }
         } catch (IOException e) {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
-        dataset.sort(comp);
+        dataSet.sort(comp);
 
         Timer.stop("sortOfTime");
 
-        return dataset;
+        return dataSet;
     }
 
     static private void writerT(@NotNull List<TimeClass> text, String outputName) throws IOException {
         Timer.start();
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(outputName))) {
             for (TimeClass timeClass : text)
-                if (timeClass.getName() != null)
-                    wr.write(timeClass.getName() + "\n");
+                if (timeClass.toString() != null)
+                    wr.write(timeClass.toString() + "\n");
         }
         Timer.stop("writerT");
     }

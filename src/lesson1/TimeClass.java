@@ -43,7 +43,8 @@ public class TimeClass {
         return sec;
     }
 
-    String getName() {
+    @Override
+    public String toString() {
         return full;
     }
 }
