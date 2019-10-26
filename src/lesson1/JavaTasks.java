@@ -241,21 +241,8 @@ public class JavaTasks {
      * System.arraycopy(first, 0, second, 0, first.length);
      * Arrays.sort(second);
      */
-    static <T extends Comparable<T>> void mergeArrays(@NotNull T[] first, @NotNull T[] second) {
-        int k = 0;
-        int j = first.length;
-        int i = 0;
-        while ((j < second.length) && (i < second.length)) {
-            if (first[k].compareTo(second[j]) < 0) {
-                second[i] = first[k];
-                k++;
-                i++;
-            } else {
-                second[i] = second[j];
-                j++;
-                i++;
-            }
-        }
+    static <T extends Comparable<T>> void mergeArrays(T[] first, T[] second) {
+        throw new NotImplementedError();
     }
 }
 
