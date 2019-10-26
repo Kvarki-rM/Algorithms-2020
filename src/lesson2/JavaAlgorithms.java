@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -189,31 +190,24 @@ public class JavaAlgorithms {
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
      * <p>
-     * Трудоёмкость O(N*sqrt(N)), ресурсоёмкость O(1)
+     * Трудоёмкость O(N*sqrt(N)), ресурсоёмкость O(n)
      */
+
     static public int calcPrimesNumber(int limit) {
         Timer.start();
         if (limit < 2) return 0;
-        ArrayList<Integer> primes = new ArrayList<>();
-        primes.add(2);
-        for (int i = 3; primes.size() < limit; i += 2)
-            if (isPrime(i, primes)) {
-                primes.add(i);
-                if (i >= limit)
-                    break;
-            }
-        Timer.stop("calcPrimesNumber");
-        return primes.size() - 1;
-    }
+        boolean[] reversDate = new boolean[limit + 1];
+        int count = 0;
 
-    @Contract(pure = true)
-    private static boolean isPrime(int n, @NotNull List<Integer> primes) {
-        double sqrt = Math.sqrt(n);
-        for (int prime : primes) {
-            if (prime > sqrt) return true;
-            if (n % prime == 0) return false;
-        }
-        return true;
+        for (int i = 2; i < reversDate.length / 2 + 1; ++i)
+            if (!reversDate[i])
+                for (int j = 2; i * j < reversDate.length; ++j)
+                    reversDate[i * j] = true;
+
+        for (boolean b : reversDate) if (!b) count++;
+
+        Timer.stop("calcPrimesNumber");
+        return count - 2;
     }
 
     /**
@@ -270,7 +264,6 @@ public class JavaAlgorithms {
         for (ArrayList<Boolean> zzz : wasUsed)
             for (int i = 0; i < input.get(0).length; i++)
                 zzz.add(false);
-
         for (String word : words) {
             for (int x = 0; x < input.size(); x++)
                 for (int y = 0; y < input.get(0).length; y++)
