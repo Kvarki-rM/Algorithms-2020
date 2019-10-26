@@ -2,11 +2,11 @@ package lesson1;
 
 import org.jetbrains.annotations.NotNull;
 
-class TimeClass {
-    int hour;
-    int min;
-    int sec;
-    String full;
+public class TimeClass {
+    private int hour;
+    private int min;
+    private int sec;
+    private String full;
 
     TimeClass(@NotNull String full) {
         this.full = full;
@@ -29,7 +29,21 @@ class TimeClass {
         }
         if (this.min > 60 || this.sec > 60)
             throw new IllegalArgumentException("Нарушен формат времени");
-
     }
 
+    public int getHour() {
+        return hour;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getSec() {
+        return sec;
+    }
+
+    String getName() {
+        return full;
+    }
 }

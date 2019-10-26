@@ -1,6 +1,9 @@
 package lesson1;
 
 import kotlin.NotImplementedError;
+import lesson1.TimeCompare.HourCompare;
+import lesson1.TimeCompare.MinCompare;
+import lesson1.TimeCompare.SecCompare;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -50,38 +53,34 @@ public class JavaTasks {
     }
 
     @NotNull
-    private static ArrayList<TimeClass> sortOfTime(String inputName) {
+    private static List<TimeClass> sortOfTime(String inputName) {
         Timer.start();
-        ArrayList<TimeClass> end = new ArrayList<>();
-        int i = 0;
+        Comparator<TimeClass> comp = new HourCompare().thenComparing
+                (new MinCompare()).thenComparing(new SecCompare());
+        //TreeSet<TimeClass> dataset = new TreeSet<>(comp);
+        ArrayList<TimeClass> dataset = new ArrayList<>();
+
         try (BufferedReader br = new BufferedReader(new FileReader(new File(inputName)))) {
             String line;
             while ((line = br.readLine()) != null) {
-                end.add(new TimeClass(line));
-                i++;
+                dataset.add(new TimeClass(line));
             }
         } catch (IOException e) {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
-        for (int j = 0; j < end.size(); j++)
-            for (int k = 0; k < end.size(); k++)
-                if (end.get(j).hour < end.get(k).hour || ((end.get(j).min < end.get(k).min)
-                        && (end.get(j).hour == end.get(k).hour)) || ((end.get(j).sec < end.get(k).sec)
-                        && (end.get(j).min == end.get(k).min) && (end.get(j).hour == end.get(k).hour))) {
-                    TimeClass temp = end.get(k);
-                    end.set(k, end.get(j));
-                    end.set(j, temp);
-                }
+        dataset.sort(comp);
+
         Timer.stop("sortOfTime");
-        return end;
+
+        return dataset;
     }
 
     static private void writerT(@NotNull List<TimeClass> text, String outputName) throws IOException {
         Timer.start();
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(outputName))) {
             for (TimeClass timeClass : text)
-                if (timeClass.full != null)
-                    wr.write(timeClass.full + "\n");
+                if (timeClass.getName() != null)
+                    wr.write(timeClass.getName() + "\n");
         }
         Timer.stop("writerT");
     }
