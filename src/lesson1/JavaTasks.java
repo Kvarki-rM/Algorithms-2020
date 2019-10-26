@@ -48,42 +48,29 @@ public class JavaTasks {
      */
 
     static public void sortTimes(String inputName, String outputName) throws IOException {
-        List<TimeClass> temp = sortOfTime(inputName);
-        writerT(temp, outputName);
-    }
-
-    @NotNull
-    private static List<TimeClass> sortOfTime(String inputName) {
         Timer.start();
+        List<TimeClass> dataSet = new ArrayList<>();
         Comparator<TimeClass> comp = new HourCompare().thenComparing
                 (new MinCompare()).thenComparing(new SecCompare());
-        ArrayList<TimeClass> dataSet = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(new File(inputName)))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null)
                 dataSet.add(new TimeClass(line));
-            }
         } catch (IOException e) {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
+
         dataSet.sort(comp);
 
-        Timer.stop("sortOfTime");
-
-        return dataSet;
-    }
-
-    static private void writerT(@NotNull List<TimeClass> text, String outputName) throws IOException {
-        Timer.start();
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(outputName))) {
-            for (TimeClass timeClass : text)
+            for (TimeClass timeClass : dataSet)
                 if (timeClass.toString() != null)
                     wr.write(timeClass.toString() + "\n");
         }
-        Timer.stop("writerT");
-    }
 
+        Timer.stop("sortTimes");
+    }
 
     /**
      * Сортировка адресов
