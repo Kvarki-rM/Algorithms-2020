@@ -43,7 +43,7 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      * <p>
      * Ресурсоемкость - O(N)
-     * Трудоемкость - O(N log2N) Трудоемкость - O(N log2N) Трудоемкость - O(N log2N) Трудоемкость - O(N log2N) Трудоемкость - O(N log2N)
+     * Трудоемкость - O(N)
      */
 
     static public void sortTimes(String inputName, String outputName) throws IOException {
@@ -132,7 +132,7 @@ public class JavaTasks {
      * 121.3
      * <p>
      * Была использована быстрая сортировка
-     * Трудоёмкость O(N), ресурсоёмкость O(1)
+     * Трудоёмкость O(N^2), ресурсоёмкость O(N)
      */
 
     static public void sortTemperatures(String inputName, String outputName) throws IOException {

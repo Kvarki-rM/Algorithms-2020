@@ -36,14 +36,14 @@ public class JavaAlgorithms {
      * <p> 17383 14987
      * В случае обнаружения неверного формата файла бросить любое исключение.
      * <p>
-     * Ресурсоемкость - O(N)
-     * Трудоемкость - ..............     * Трудоемкость - .....................     * Трудоемкость - ............................
+     * Ресурсоемкость - O(2N)
+     * Трудоемкость - O(N)
      */
     @NotNull
     @Contract("_ -> new")
     static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
         Timer.start();
-        ArrayList<Integer> input = new ArrayList<>();
+        List<Integer> input = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(inputName)));
             String line;
@@ -53,7 +53,7 @@ public class JavaAlgorithms {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
 
-        ArrayList<Integer> delta = new ArrayList<>();
+        List<Integer> delta = new ArrayList<>();
         for (int i = 0; i < input.size() - 1; i++) delta.add(input.get(i + 1) - input.get(i));
 
         int max = 0;
@@ -146,6 +146,7 @@ public class JavaAlgorithms {
      * Ресурсоемкость - O(min(N,M))
      * Трудоемкость - O(MN)
      */
+
     @Contract("null, _ -> !null; !null, null -> !null")
     static public String longestCommonSubstring(String first, String second) {
         if (first == null || second == null || first.length() == 0 || second.length() == 0) {
