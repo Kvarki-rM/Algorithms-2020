@@ -190,7 +190,7 @@ public class JavaAlgorithms {
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
      * <p>
-     * Трудоёмкость O(N*sqrt(N)), ресурсоёмкость O(n)
+     * Трудоёмкость O(N*log(log(N)))), ресурсоёмкость O(N)
      */
 
     static public int calcPrimesNumber(int limit) {
@@ -291,9 +291,8 @@ public class JavaAlgorithms {
                 if (inside.get(x - 1)[y].toUpperCase().equals(word[leng + 1].toUpperCase())) {//вверх
                     leng++;
                     wasUsed.get(x).set(y, true);
-                    if (encounter(inside, word, x - 1, y, leng, wasUsed)) {
-                        return true;
-                    } else leng--;
+                    if (encounter(inside, word, x - 1, y, leng, wasUsed)) return true;
+                    else leng--;
                 }
         if (x < inside.size() - 1)
             if (!wasUsed.get(x + 1).get(y))

@@ -1,9 +1,6 @@
 package lesson1;
 
 import kotlin.NotImplementedError;
-import lesson1.TimeCompare.HourCompare;
-import lesson1.TimeCompare.MinCompare;
-import lesson1.TimeCompare.SecCompare;
 
 import java.io.*;
 import java.util.*;
@@ -49,8 +46,6 @@ public class JavaTasks {
     static public void sortTimes(String inputName, String outputName) throws IOException {
         Timer.start();
         List<TimeClass> dataSet = new ArrayList<>();
-        Comparator<TimeClass> comp = new HourCompare().thenComparing
-                (new MinCompare()).thenComparing(new SecCompare());
 
         try (BufferedReader br = new BufferedReader(new FileReader(new File(inputName)))) {
             String line;
@@ -60,7 +55,7 @@ public class JavaTasks {
             throw new IllegalArgumentException("Нету файла по указанному пути или файл не соответсвует формату.");
         }
 
-        dataSet.sort(comp);
+        dataSet.sort(new TimeCompare());
 
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(outputName))) {
             for (TimeClass timeClass : dataSet)

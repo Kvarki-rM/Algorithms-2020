@@ -31,15 +31,15 @@ public class TimeClass {
             throw new IllegalArgumentException("Нарушен формат времени");
     }
 
-    public int getHour() {
+    int getHour() {
         return hour;
     }
 
-    public int getMin() {
+    int getMin() {
         return min;
     }
 
-    public int getSec() {
+    int getSec() {
         return sec;
     }
 
