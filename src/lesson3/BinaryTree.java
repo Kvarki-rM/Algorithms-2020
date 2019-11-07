@@ -9,17 +9,42 @@ import java.util.*;
 // Attention: comparable supported but comparator is not
 public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implements CheckableSortedSet<T> {
 
-    private static class Node<T> {
-        final T value;
+    private static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+        T value;
 
         Node<T> left = null;
 
         Node<T> right = null;
 
+        Node<T> parent = null;
+
+        Node<T> minimum() {
+            Node<T> current = this;
+            while (current.left != null) {
+                current = current.left;
+            }
+            return current;
+        }
+
+        Node<T> maximum() {
+            Node<T> current = this;
+            while (current.right != null) {
+                current = current.right;
+            }
+            return current;
+        }
+
         Node(T value) {
             this.value = value;
         }
+
+
+        @Override
+        public int compareTo(@NotNull Node<T> o) {
+            return this.value.compareTo(o.value);
+        }
     }
+
 
     private Node<T> root = null;
 
@@ -35,14 +60,14 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         Node<T> newNode = new Node<>(t);
         if (closest == null) {
             root = newNode;
-        }
-        else if (comparison < 0) {
+        } else if (comparison < 0) {
             assert closest.left == null;
             closest.left = newNode;
-        }
-        else {
+            newNode.parent = closest;
+        } else {
             assert closest.right == null;
             closest.right = newNode;
+            newNode.parent = closest;
         }
         size++;
         return true;
@@ -72,10 +97,27 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Удаление элемента в дереве
      * Средняя
      */
+
     @Override
     public boolean remove(Object o) {
-        // TODO
-        throw new NotImplementedError();
+        Node<T> node = find((T) o);
+        if (node == null) return false;
+        if (node.left == null) movingFromTo(node.right, node);
+        else if (node.right == null) movingFromTo(node.left, node);
+        else {
+
+
+        }
+        size--;
+        return true;
+    }
+
+    private void movingFromTo(Node<T> from, @NotNull Node<T> to) {
+        if (to.parent == null) root = from;
+        else if (to.equals(to.parent.left)) to.parent.left = from;
+        else to.parent.right = from;
+        if (from != null) from.parent = to.parent;
+
     }
 
     @Override
@@ -95,12 +137,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         int comparison = value.compareTo(start.value);
         if (comparison == 0) {
             return start;
-        }
-        else if (comparison < 0) {
+        } else if (comparison < 0) {
             if (start.left == null) return start;
             return find(start.left, value);
-        }
-        else {
+        } else {
             if (start.right == null) return start;
             return find(start.right, value);
         }
