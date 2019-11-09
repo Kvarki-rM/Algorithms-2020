@@ -11,33 +11,24 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     private static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
         T value;
-
         Node<T> left = null;
-
         Node<T> right = null;
-
         Node<T> parent = null;
 
         Node<T> minimum() {
             Node<T> current = this;
-            while (current.left != null) {
-                current = current.left;
-            }
+            while (current.left != null) current = current.left;
             return current;
         }
-
         Node<T> maximum() {
             Node<T> current = this;
-            while (current.right != null) {
-                current = current.right;
-            }
+            while (current.right != null) current = current.right;
             return current;
         }
 
         Node(T value) {
             this.value = value;
         }
-
 
         @Override
         public int compareTo(@NotNull Node<T> o) {
@@ -100,6 +91,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     @Override
     public boolean remove(Object o) {
+        @SuppressWarnings("unchecked")
         Node<T> node = find((T) o);
         if (node == null) return false;
         if (node.left == null) movingFromTo(node.right, node);
