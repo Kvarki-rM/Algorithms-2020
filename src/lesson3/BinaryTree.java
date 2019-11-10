@@ -21,6 +21,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             while (current.left != null) current = current.left;
             return current;
         }
+
         Node<T> maximum() {
             Node<T> current = this;
             while (current.right != null) current = current.right;
@@ -145,10 +146,44 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         }
     }
 
+    @Nullable
+    private Node<T> findNext(Node<T> x) {
+        if (root == null) return null;
+        if (x == null) return root.minimum();
+        if (x.right != null) {
+            return x.right.minimum();
+        }
+        Node<T> y = x.parent;
+        while (y != null && x == y.right) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
+
+    @Nullable
+    private Node<T> findPrevious(Node<T> x) {
+        if (root == null) return null;
+        if (x == null) return root.maximum();
+        if (x.left != null) {
+            return x.left.maximum();
+        }
+        Node<T> y = x.parent;
+        while (y != null && x == y.left) {
+            x = y;
+            y = y.parent;
+        }
+        return y;
+    }
+
     public class BinaryTreeIterator implements Iterator<T> {
 
+        private Node<T> current;
+        private Node<T> next;
+
         private BinaryTreeIterator() {
-            // Добавьте сюда инициализацию, если она необходима
+            current = null;
+            next = findNext(null);
         }
 
         /**
@@ -157,8 +192,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public boolean hasNext() {
-            // TODO
-            throw new NotImplementedError();
+            return next != null;
         }
 
         /**
@@ -167,8 +201,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public T next() {
-            // TODO
-            throw new NotImplementedError();
+            current = findNext(current);
+            next = findNext(current);
+            if (current == null) throw new NoSuchElementException();
+            return current.value;
         }
 
         /**
@@ -177,8 +213,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            // TODO
-            throw new NotImplementedError();
+            if (current == null) throw new IllegalStateException();
+            BinaryTree.this.remove(next);
+            current = null;
+            next = null;
         }
     }
 
@@ -218,8 +256,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
-        // TODO
-        throw new NotImplementedError();
+        SortedSet<T> date = new TreeSet<>();
+        BinaryTreeIterator i = new BinaryTreeIterator();
+        while (i.hasNext()) if (i.next().compareTo(toElement) < 0) date.add(i.next());
+        return date;
     }
 
     /**
@@ -229,8 +269,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        // TODO
-        throw new NotImplementedError();
+        SortedSet<T> date = new TreeSet<>();
+        BinaryTreeIterator i = new BinaryTreeIterator();
+        while (i.hasNext()) if (i.next().compareTo(fromElement) >= 0) date.add(i.next());
+        return date;
     }
 
     @Override
