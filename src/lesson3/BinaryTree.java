@@ -179,6 +179,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     public class BinaryTreeIterator implements Iterator<T> {
 
         private Node<T> current;
+        private Node<T> previous;
         private Node<T> next;
 
         private BinaryTreeIterator() {
@@ -201,7 +202,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public T next() {
-            current = findNext(current);
+            previous = current;
+            current = next;
             next = findNext(current);
             if (current == null) throw new NoSuchElementException();
             return current.value;
@@ -213,10 +215,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            if (current == null) throw new IllegalStateException();
+            if (current == null) throw new NoSuchElementException();
             BinaryTree.this.remove(next);
-            current = null;
-            next = null;
+            current = next;
+            next = findNext(current);
         }
     }
 
