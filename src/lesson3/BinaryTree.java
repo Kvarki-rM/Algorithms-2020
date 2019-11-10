@@ -10,8 +10,8 @@ import java.util.*;
 // Attention: comparable supported but comparator is not
 public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implements CheckableSortedSet<T> {
 
-    private static class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
-        T value;
+    private static class Node<T> {
+        final T value;
         Node<T> left = null;
         Node<T> right = null;
         Node<T> parent = null;
@@ -29,11 +29,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
         Node(T value) {
             this.value = value;
-        }
-
-        @Override
-        public int compareTo(@NotNull Node<T> o) {
-            return this.value.compareTo(o.value);
         }
     }
 
