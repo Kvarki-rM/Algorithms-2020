@@ -1,6 +1,7 @@
 package lesson3;
 
 import kotlin.NotImplementedError;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -121,6 +122,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         if (from != null) from.parent = to.parent;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean contains(Object o) {
         @SuppressWarnings("unchecked")
@@ -129,12 +131,13 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return closest != null && t.compareTo(closest.value) == 0;
     }
 
+    @Nullable
     private Node<T> find(T value) {
         if (root == null) return null;
         return find(root, value);
     }
 
-    private Node<T> find(Node<T> start, T value) {
+    private Node<T> find(@NotNull Node<T> start, @NotNull T value) {
         int comparison = value.compareTo(start.value);
         if (comparison == 0) {
             return start;
