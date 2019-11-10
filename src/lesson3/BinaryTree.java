@@ -258,12 +258,9 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
-        SortedSet<T> date = new TreeSet<>();
-        BinaryTreeIterator i = new BinaryTreeIterator();
-        while (i.hasNext()) if (i.next().compareTo(toElement) < 0) date.add(i.next());
-        return date;
+        // TODO
+        throw new NotImplementedError();
     }
-
     /**
      * Найти множество всех элементов больше или равных заданного
      * Сложная
@@ -271,10 +268,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        SortedSet<T> date = new TreeSet<>();
-        BinaryTreeIterator i = new BinaryTreeIterator();
-        while (i.hasNext()) if (i.next().compareTo(fromElement) >= 0) date.add(i.next());
-        return date;
+        // TODO
+        throw new NotImplementedError();
     }
 
     @Override
