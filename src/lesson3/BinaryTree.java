@@ -72,7 +72,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return height(root);
     }
 
-    private boolean checkInvariant(Node<T> node) {
+    private boolean checkInvariant(@NotNull Node<T> node) {
         Node<T> left = node.left;
         if (left != null && (left.value.compareTo(node.value) >= 0 || !checkInvariant(left))) return false;
         Node<T> right = node.right;
@@ -87,17 +87,27 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     /**
      * Удаление элемента в дереве
      * Средняя
+     * Ресурсоемкость - O(1)
+     * Трудоемкость - O(N)
      */
-
     @Override
     public boolean remove(Object o) {
+        if (!contains(o)) return false;
         @SuppressWarnings("unchecked")
         Node<T> node = find((T) o);
         if (node == null) return false;
         if (node.left == null) movingFromTo(node.right, node);
         else if (node.right == null) movingFromTo(node.left, node);
         else {
-
+            Node<T> min = node.right.minimum();
+            if (min.parent != node) {
+                movingFromTo(min.right, min);
+                min.right = node.right;
+                min.right.parent = min;
+            }
+            movingFromTo(min, node);
+            min.left = node.left;
+            min.left.parent = min;
 
         }
         size--;
@@ -109,7 +119,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         else if (to.equals(to.parent.left)) to.parent.left = from;
         else to.parent.right = from;
         if (from != null) from.parent = to.parent;
-
     }
 
     @Override
