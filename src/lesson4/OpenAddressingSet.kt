@@ -57,10 +57,10 @@ class OpenAddressingSet<T : Any>(private val bits: Int) : AbstractMutableSet<T>(
         while (current != null) {
             if (current == element) {
                 storage[startingIndex] = null
+                size--
             }
             current = storage[startingIndex]
         }
-        size--
         return false
     }
 
