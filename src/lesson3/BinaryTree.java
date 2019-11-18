@@ -22,11 +22,11 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             return current;
         }
 
-        Node<T> maximum() {
-            Node<T> current = this;
-            while (current.right != null) current = current.right;
-            return current;
-        }
+       // Node<T> maximum() {
+       //     Node<T> current = this;
+       //     while (current.right != null) current = current.right;
+       //     return current;
+       // }
 
         Node(T value) {
             this.value = value;
