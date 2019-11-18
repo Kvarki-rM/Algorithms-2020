@@ -164,20 +164,20 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return y;
     }
 
-    @Nullable
-    private Node<T> findPrevious(Node<T> x) {
-        if (root == null) return null;
-        if (x == null) return root.maximum();
-        if (x.left != null) {
-            return x.left.maximum();
-        }
-        Node<T> y = x.parent;
-        while (y != null && x == y.left) {
-            x = y;
-            y = y.parent;
-        }
-        return y;
-    }
+    //@Nullable
+    //private Node<T> findPrevious(Node<T> x) {
+    //    if (root == null) return null;
+    //    if (x == null) return root.maximum();
+    //    if (x.left != null) {
+    //        return x.left.maximum();
+    //    }
+    //    Node<T> y = x.parent;
+    //    while (y != null && x == y.left) {
+    //        x = y;
+    //        y = y.parent;
+    //    }
+    //    return y;
+    //}
 
     public class BinaryTreeIterator implements Iterator<T> {
 
