@@ -76,12 +76,16 @@ class OpenAddressingSetTest {
     fun exThrow2() {
         val exception: Exception =
             assertThrows(IllegalStateException::class.java) {
-                val set = OpenAddressingSet<String>(2)
+                val set = OpenAddressingSet<String>(3)
+                set.add("Свиноферма")
                 set.add("Хрюша")
                 set.add("Пятачок")
                 set.add("Ниф-Ниф")
                 set.add("Наф-Наф")
                 set.add("Нуф-Нуф")
+                set.add("Фунтик")
+                set.add("Бэйб")
+                set.add("Пеппа")
             }
         assertEquals("Table is full", exception.message)
 
