@@ -53,17 +53,12 @@ class OpenAddressingSet<T : Any>(private val bits: Int) : AbstractMutableSet<T>(
     override fun remove(element: T): Boolean {
         if (element !in storage) throw NoSuchElementException("No such element")
         val startingIndex = element.startingIndex()
-        var index = startingIndex
-        var current = storage[index]
+        var current = storage[startingIndex]
         while (current != null) {
             if (current == element) {
-                storage[index] = null
+                storage[startingIndex] = null
             }
-            index = (index + 1) % capacity
-            if (index == startingIndex) {
-                return false
-            }
-            current = storage[index]
+            current = storage[startingIndex]
         }
         size--
         return false
