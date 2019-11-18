@@ -89,10 +89,14 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      */
     @Override
     public boolean remove(Object o) {
-        if (!contains(o)) return false;
         @SuppressWarnings("unchecked")
         Node<T> node = find((T) o);
         if (node == null) return false;
+        incRemove(node);
+        return true;
+    }
+
+    private void incRemove(@NotNull Node<T> node) {
         if (node.left == null) movingFromTo(node.right, node);
         else if (node.right == null) movingFromTo(node.left, node);
         else {
@@ -108,7 +112,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
         }
         size--;
-        return true;
     }
 
     private void movingFromTo(Node<T> from, @NotNull Node<T> to) {
@@ -178,13 +181,11 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     public class BinaryTreeIterator implements Iterator<T> {
 
-        private Node<T> current;
-        private Node<T> previous;
-        private Node<T> next;
+        private Node<T> cursor;
+        private Node<T> lastRet = null;
 
         private BinaryTreeIterator() {
-            current = null;
-            next = findNext(null);
+            cursor = findNext(null);
         }
 
         /**
@@ -193,7 +194,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public boolean hasNext() {
-            return next != null;
+            return cursor != null;
         }
 
         /**
@@ -202,11 +203,10 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public T next() {
-            previous = current;
-            current = next;
-            next = findNext(current);
-            if (current == null) throw new NoSuchElementException();
-            return current.value;
+            lastRet = cursor;
+            cursor = findNext(cursor);
+            if (lastRet == null) throw new NoSuchElementException();
+            return lastRet.value;
         }
 
         /**
@@ -215,10 +215,9 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            if (current == null) throw new NoSuchElementException();
-            BinaryTree.this.remove(next);
-            current = next;
-            next = findNext(current);
+            if (lastRet == null) throw new IllegalStateException();
+            BinaryTree.this.incRemove(lastRet);
+            lastRet = null;
         }
     }
 
@@ -232,7 +231,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     public int size() {
         return size;
     }
-
 
     @Nullable
     @Override
@@ -261,6 +259,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         // TODO
         throw new NotImplementedError();
     }
+
     /**
      * Найти множество всех элементов больше или равных заданного
      * Сложная
