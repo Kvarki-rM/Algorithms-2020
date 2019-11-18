@@ -49,7 +49,21 @@ class OpenAddressingSet<T : Any>(private val bits: Int) : AbstractMutableSet<T>(
      * Для этой задачи пока нет тестов, но вы можете попробовать привести решение и добавить к нему тесты
      */
     override fun remove(element: T): Boolean {
-        TODO("not implemented")
+        val startingIndex = element.startingIndex()
+        var index = startingIndex
+        var current = storage[index]
+        while (current != null) {
+            if (current == element) {
+                storage[index] = null
+            }
+            index = (index + 1) % capacity
+            if (index == startingIndex) {
+                return false
+            }
+            current = storage[index]
+        }
+        size--
+        return false
     }
 
     /**
