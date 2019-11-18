@@ -1,5 +1,7 @@
 package lesson4
 
+import java.util.NoSuchElementException
+
 class OpenAddressingSet<T : Any>(private val bits: Int) : AbstractMutableSet<T>() {
     init {
         require(bits in 2..31)
@@ -49,6 +51,7 @@ class OpenAddressingSet<T : Any>(private val bits: Int) : AbstractMutableSet<T>(
      * Для этой задачи пока нет тестов, но вы можете попробовать привести решение и добавить к нему тесты
      */
     override fun remove(element: T): Boolean {
+        if (element !in storage) throw NoSuchElementException("No such element")
         val startingIndex = element.startingIndex()
         var index = startingIndex
         var current = storage[index]

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Tag
+import java.util.NoSuchElementException
 
 class OpenAddressingSetTest {
 
@@ -26,7 +27,7 @@ class OpenAddressingSetTest {
     fun remove() {
         val set = OpenAddressingSet<String>(16)
         assertTrue(set.isEmpty())
-        set.add("Свиноферма")
+        set.add("Свинарник")
         set.add("Хрюша")
         set.add("Пятачок")
         set.add("Ниф-Ниф")
@@ -38,7 +39,7 @@ class OpenAddressingSetTest {
         set.add("Нюша")
         set.add("Пумба")
 
-        set.remove("Свиноферма")
+        set.remove("Свинарник")
         assertSame(10, set.size)
 
         assertFalse("Свиноферма" in set)
@@ -54,6 +55,7 @@ class OpenAddressingSetTest {
 
         set.remove("Нуф-Нуф")
         set.remove("Бэйб")
+
         assertTrue("Фунтик" in set)
         set.remove("Пумба")
         assertFalse("Пумба" in set)
@@ -64,20 +66,23 @@ class OpenAddressingSetTest {
     @Test
     @Tag("Example")
     fun exThrow() {
-        val exception: Exception =
+        val exception1: Exception =
             assertThrows(IllegalArgumentException::class.java) {
                 OpenAddressingSet<String>(32)
             }
-        assertEquals("Failed requirement.", exception.message)
-    }
+        assertEquals("Failed requirement.", exception1.message)
+        val exception2: Exception =
+            assertThrows(NoSuchElementException::class.java) {
+                val set = OpenAddressingSet<String>(3)
+                set.add("Свинарник")
+                set.remove("Пеппа")
+            }
+        assertEquals("No such element", exception2.message)
 
-    @Test
-    @Tag("Example")
-    fun exThrow2() {
-        val exception: Exception =
+        val exception3: Exception =
             assertThrows(IllegalStateException::class.java) {
                 val set = OpenAddressingSet<String>(3)
-                set.add("Свиноферма")
+                set.add("Свинарник")
                 set.add("Хрюша")
                 set.add("Пятачок")
                 set.add("Ниф-Ниф")
@@ -87,7 +92,7 @@ class OpenAddressingSetTest {
                 set.add("Бэйб")
                 set.add("Пеппа")
             }
-        assertEquals("Table is full", exception.message)
-
+        assertEquals("Table is full", exception3.message)
     }
+
 }
