@@ -60,7 +60,6 @@ class OpenAddressingSetTest {
         set.remove("Пумба")
         assertFalse("Пумба" in set)
         assertFalse("Бэйб" in set)
-
     }
 
     @Test
